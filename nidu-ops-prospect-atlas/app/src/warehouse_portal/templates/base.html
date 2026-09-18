@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{% block title %}Warehouse Portal GTM{% endblock %}</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <script src="https://unpkg.com/htmx.org@2.0.8" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="shell">
+  <aside class="sidebar" aria-label="Primary navigation">
+    <a class="brand" href="/"><span class="brand-mark">WP</span><span>Warehouse Portal<br><small>GTM WORKSPACE</small></span></a>
+    <nav>
+      <a class="{{ 'active' if active == 'dashboard' else '' }}" href="/">Dashboard</a>
+      <a class="{{ 'active' if active == 'accounts' else '' }}" href="/accounts">Accounts</a>
+      <a class="{{ 'active' if active == 'discovery' else '' }}" href="/discovery">Discovery</a>
+      <a class="{{ 'active' if active == 'research' else '' }}" href="/research-queue">Research queue</a>
+      <a class="{{ 'active' if active == 'scoring' else '' }}" href="/scoring-review">Scoring review</a>
+      <a class="{{ 'active' if active == 'approval' else '' }}" href="/approval-queue">Approval queue</a>
+      <a class="{{ 'active' if active == 'runs' else '' }}" href="/agent-runs">Agent runs</a>
+      <a class="{{ 'active' if active == 'settings' else '' }}" href="/settings">Settings</a>
+    </nav>
+    <div class="sidebar-note"><span class="dot"></span> Human review required<br><small>Email sending disabled</small><p>Signed in as <strong>{{ request.state.operator.username }}</strong> ({{ request.state.operator.role }})</p><form method="post" action="/logout"><input type="hidden" name="csrf_token" value="{{ request.session.csrf }}"><button class="button small" type="submit">Sign out</button></form></div>
+  </aside>
+  <main id="main" class="content">
+    <div class="topbar"><span>SAVANNAH TERRITORY</span><span class="topbar-right">Research → evidence → review</span></div>
+    {% block content %}{% endblock %}
+  </main>
+</div>
+</body>
+</html>

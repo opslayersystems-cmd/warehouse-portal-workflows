@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Dashboard · Warehouse Portal GTM{% endblock %}
+{% block content %}
+<header class="page-head"><div><p class="eyebrow">Overview</p><h1>Prospect workspace</h1><p class="sub">Source-backed discovery and review for the Savannah territory.</p></div><a class="button primary" href="/discovery">Discover accounts</a></header>
+<section class="stats" aria-label="Pipeline summary">
+  <article class="stat"><span>All accounts</span><strong>{{ counts.values()|sum }}</strong><small>discovered in workspace</small></article>
+  <article class="stat"><span>Needs review</span><strong>{{ review_count }}</strong><small>awaiting a person</small></article>
+  <article class="stat"><span>Qualified</span><strong>{{ counts.get('qualified', 0) }}</strong><small>human approved</small></article>
+  <article class="stat"><span>Researching</span><strong>{{ counts.get('researching', 0) }}</strong><small>active research</small></article>
+</section>
+<section class="panel"><div class="panel-head"><div><p class="eyebrow">Pipeline</p><h2>Recent accounts</h2></div><a href="/accounts">View all →</a></div>
+{% if recent %}<div class="table-wrap"><table><thead><tr><th>Company</th><th>City</th><th>Territory</th><th>Fit score</th><th>Status</th></tr></thead><tbody>{% for account in recent %}{% set score = scores.get(account.id) %}<tr><td><a class="row-link" href="/accounts/{{ account.id }}">{{ account.name }}</a>{% if account.is_demo %}<span class="badge demo">Fictional demo</span>{% endif %}</td><td>{{ account.city or 'Unknown' }}</td><td>{{ account.geographic_tier|replace('_',' ')|title }}</td><td>{% if score %}<strong class="table-score">{{ score.score }}/100</strong>{% else %}<span class="muted">Pending research</span>{% endif %}</td><td><span class="badge stage">{{ account.pipeline_stage|replace('_',' ')|title }}</span></td></tr>{% endfor %}</tbody></table></div>{% else %}<div class="empty">No accounts yet. Start with fictional demo data or import a CSV.</div>{% endif %}</section>
+<div class="callout"><strong>Product truth</strong><p>Warehouse Portal capabilities listed for this project are DEV behavior. Atlantic Industrials is a design partner; its Houston pilot has not started. Review source evidence before any qualification.</p></div>
+{% endblock %}

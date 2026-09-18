@@ -1,0 +1,2 @@
+name,website,industry,description,city,state,local_address,latitude,longitude,is_demo
+Example Harbor Supply,https://example.invalid/harbor,industrial supply distributor,Fictional demo company,Savannah,GA,"100 Demo Way, Savannah, GA",32.0809,-81.0912,true
